@@ -1,0 +1,35 @@
+version: "2"
+
+services:
+  db:
+    image: postgres:11.6
+    container_name: db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - postgres-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@example.com
+      PGADMIN_DEFAULT_PASSWORD: "SuperSecret"
+    depends_on:
+      - db
+    ports:
+      - 8888:80
+    networks:
+      - postgres-net
+    restart: unless-stopped
+    volumes:
+      - pgconfig:/var/lib/pgadmin/databases
+
+volumes:
+  postgres-db:
+  pgconfig:
+
+networks:
+  postgres-net:
