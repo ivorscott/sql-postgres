@@ -25,7 +25,7 @@ services:
       - postgres-net
     restart: unless-stopped
     volumes:
-      - pgconfig:/var/lib/pgadmin/databases
+      - pgconfig:/var/lib/pgadmin
 
 volumes:
   postgres-db:
